@@ -1,0 +1,14 @@
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.AssemblyInfoInputs.cache
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.AssemblyInfo.cs
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.csproj.CoreCompileInputs.cache
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.exe
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.deps.json
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.runtimeconfig.json
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.dll
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.pdb
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.dll
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\refint\Comparative Advantage Simulator.dll
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.pdb
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.genruntimeconfig.cache
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\ref\Comparative Advantage Simulator.dll
