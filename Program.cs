@@ -31,6 +31,14 @@ public class Entity {
         return name;
     }
 
+    public List<string> getProducts() {
+        return products;
+    }
+
+    public List<double> getRates() {
+        return rates;
+    }
+
     public void addToProducts(string product, double rate) {
       
         products.Add(product);
@@ -75,6 +83,118 @@ public class Entity {
 
 class Program
 {
+    static void printCommonProducts(Entity e1, Entity e2) {
+
+        string e1Name = e1.getName();
+        string e2Name = e2.getName();
+        List<string> e1Products = e1.getProducts();
+        List<string> e2Products = e2.getProducts();
+        List<string> listToUse = null;
+        List<string> otherList = null;
+
+        if (e1Products.Count > e2Products.Count) {
+            listToUse = e1Products;
+            otherList = e2Products;
+        } else {
+            listToUse = e2Products;
+            otherList = e1Products;
+        }
+
+        List<string> commonProductList = new List<string>();
+        
+        for (int i = 0; i < listToUse.Count; i++) {
+            
+            string itemToCheck = listToUse[i];
+
+            if (otherList.Contains(itemToCheck)) {
+                commonProductList.Add(itemToCheck);
+            }
+
+        }
+
+        if (commonProductList.Count == 0) {
+            Console.WriteLine("No common products found. Comparative advantage is not possible to determine.");
+            return;
+        } 
+
+        if (commonProductList.Count == 1) {
+            Console.WriteLine("Only 1 common product found. Comparative advantage is not possible to determine.");
+            Console.WriteLine("Common Product: " + commonProductList[0]);
+            return;
+        }
+
+        Console.WriteLine("*****LIST OF COMMON PRODUCTS*****");
+        Console.WriteLine("for Entities " + e1Name + " and " + e2Name + "\n");
+
+        for (int i = 0; i < commonProductList.Count; i++) {
+            Console.WriteLine(commonProductList[i]);
+        }
+
+    }
+
+    static List<Entity> determineComparativeAdvantage(Entity e1, Entity e2, string product1, string product2) {
+
+        List<Entity> advantagedEntities = new List<Entity>();
+        List<string> e1Products = e1.getProducts();
+        List<double> e1Rates = e1.getRates();
+        List<string> e2Products = e2.getProducts();
+        List <double> e2Rates = e2.getRates();
+
+        int index1Product1 = e1Products.IndexOf(product1);
+        double rate1Product1 = e1Rates[index1Product1];
+        int index2Product1 = e2Products.IndexOf(product1);
+        double rate2Product1 = e2Rates[index2Product1];
+        int index1Product2 = e1Products.IndexOf(product2);
+        double rate1Product2 = e1Rates[index1Product2];
+        int index2Product2 = e2Products.IndexOf(product2);
+        double rate2Product2 = e2Rates[index2Product2];
+
+        double oc1Product1 = rate1Product2 / rate1Product1;
+        double oc1Product2 = 1 / oc1Product1;
+        double oc2Product1 = rate2Product2/ rate2Product1;
+        double oc2Product2 = 1 / oc2Product1;
+
+        if (oc1Product1 == oc2Product1) {
+            advantagedEntities.Add(null);
+            advantagedEntities.Add(null);
+            return advantagedEntities;
+        }
+
+        if (oc1Product1 > oc2Product1) {
+            advantagedEntities.Add(e2);
+        } else {
+            advantagedEntities.Add(e1);
+        }
+
+        if (oc1Product2 > oc2Product2) {
+            advantagedEntities.Add(e2);
+        } else {
+            advantagedEntities.Add(e1);
+        }
+
+        return advantagedEntities;
+
+    }
+
+    static void printComparativeAdvantage(Entity e1, Entity e2) {
+       
+        string e1Name = e1.getName();
+        string e2Name = e2.getName();
+        Console.WriteLine("Comparative advantage of production between entities " + e1Name + " and " + e2Name + "\n");
+        printCommonProducts(e1, e2);
+        Console.WriteLine("Choose two COMMON products to compare production for.");
+        Console.WriteLine("Choose product 1: ");
+        string product1 = Console.ReadLine();
+        Console.WriteLine("Choose product 2: ");
+        string product2 = Console.ReadLine();
+        Console.WriteLine("Comparing products " + product1 + " and " + product2 + "\n");
+        List<Entity> advantagedEntities = determineComparativeAdvantage(e1, e2, product1, product2);
+        Entity p1Entity = advantagedEntities[0];
+        Entity p2Entity = advantagedEntities[1];
+        Console.WriteLine(p1Entity.getName() + " has the comparative advantage in making product " + product1);
+        Console.WriteLine(p2Entity.getName() + " has the comparative advantage in making product " + product2);
+
+    }
 
     static void printCommands() {
 
@@ -209,7 +329,7 @@ class Program
     static void deleteEntity() {
         //the line will need to be directly removed, for now it's unused
         Console.WriteLine("Which entity do you want to delete?");
-        entityToDelete = Console.ReadLine();
+        string entityToDelete = Console.ReadLine();
     }
 
     static void Main(string[] args)
