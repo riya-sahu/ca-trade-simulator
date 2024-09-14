@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Comparative Advantage Simulator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aebb09d85024e41e503112b24ae5a170acef823b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef16bf345e9304983c261cac73097a2cc28e7235")]
 [assembly: System.Reflection.AssemblyProductAttribute("Comparative Advantage Simulator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Comparative Advantage Simulator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

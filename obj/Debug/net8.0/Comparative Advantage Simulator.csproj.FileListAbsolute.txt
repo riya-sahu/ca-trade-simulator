@@ -27,3 +27,4 @@ C:\Users\rsahu\Documents\Trade Simulator\bin\Debug\net8.0\Comparative Advantage 
 C:\Users\rsahu\Documents\Trade Simulator\bin\Debug\net8.0\Comparative Advantage Simulator.pdb
 C:\Users\rsahu\Documents\Trade Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.genruntimeconfig.cache
 C:\Users\rsahu\Documents\Trade Simulator\obj\Debug\net8.0\ref\Comparative Advantage Simulator.dll
+C:\Users\rsahu\Documents\Comparative Advantage Simulator\obj\Debug\net8.0\Comparative Advantage Simulator.sourcelink.json

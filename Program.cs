@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace Comparative_Advantage_Simulator;
 
@@ -196,6 +197,20 @@ class Program
 
     }
 
+    //TODO: write the actual absolute advantage determinator
+    static void printAbsoluteAdvantage(Entity e1, Entity e2) {
+        //TODO: add system for incorporating multiple entities in the comparison
+
+        string e1Name = e1.getName();
+        string e2Name = e2.getName();
+        Console.WriteLine("Absolute advantage of production between entities " + e1Name + " and " + e2Name + "\n");
+        printCommonProducts(e1, e2);
+        Console.WriteLine("Choose a COMMON product to compare absolute advantage in production for.");
+        Console.WriteLine("Product Name: ");
+        string productToCompare = Console.ReadLine();
+        
+    }
+
     static void printCommands() {
 
         Console.WriteLine("*****ACTIONS*****\n");
@@ -206,6 +221,10 @@ class Program
         Console.WriteLine("\tmod_p: edits an existing product's information");
         Console.WriteLine("\tdel_p: removes a product from the entity's production list");
         Console.WriteLine("del_e: removes an entity from the list of entities");
+        Console.WriteLine("open_s: creates a new simulation in which counntries can trade for advantage");
+        Console.WriteLine("close_s: closes the current simulation");
+        Console.WriteLine("comp_a: finds the comparative advantages of production for two existing entities");
+        Console.WriteLine("abs_a: finds the absolute advantage(s) of production between two or more countries");
         Console.WriteLine("\nMore sub-actions specific to main actions will be described after a main action is chosen.");
         Console.WriteLine("\n*****************");
 
@@ -222,10 +241,39 @@ class Program
 
         Console.WriteLine("Adding Product to " + e.getName());
         Console.WriteLine("Product Name: ");
-        string productName = Console.ReadLine();
+        string productName = null;
+
+        while (productName == null) {
+
+            productName = Console.ReadLine();
+
+            if (productName != null) {
+                break;
+            } else {
+                Console.WriteLine("No product given. Please type in a product name: ");
+            }
+
+        }
+
         Console.WriteLine("Rate of production (x items/hr): ");
-        string productionRate = Console.ReadLine();
-        e.addToProducts(productName, Convert.ToDouble(productionRate));
+        string productionRate = null;
+
+        while (productionRate == null) {
+
+            productionRate = Console.ReadLine();
+
+            try {
+                double productionRateDouble = Convert.ToDouble(productionRate);
+                e.addToProducts(productName, productionRateDouble);
+            } catch (Exception ex) {
+                Console.WriteLine("Not a number. Please enter a number for the production rate: ");
+                continue;
+            }
+
+            break;
+
+        }
+
         Console.WriteLine("\nProduct added to " + e.getName() + "!\n");
 
     }
@@ -235,10 +283,47 @@ class Program
         Console.WriteLine("Modifying Product of " + e.getName());
         e.printProducts();
         Console.WriteLine("\nPick a product to modify: ");
-        string productToModify = Console.ReadLine();
+        List<string> productList = e.getProducts();
+        string productToModify = null;
+
+        while (productToModify == null) {
+
+            productToModify = Console.ReadLine();
+            
+            if (!(productList.Contains(productToModify))) {
+                Console.WriteLine("Not a recognized product. Please refer to the list above for a product to modify: ");
+                continue;
+            } 
+            
+            break;
+
+        }
+        
+        double rateOfProduction = 0.0;
         Console.WriteLine("\nEnter the new rate of production:");
-        string rateOfProduction = Console.ReadLine();
-        e.modifyProduct(productToModify, Convert.ToDouble(rateOfProduction));
+
+        while (rateOfProduction == 0) {
+            
+            string rateOfProductionString = Console.ReadLine();
+
+            try {
+
+                rateOfProduction = Convert.ToDouble(rateOfProductionString);
+
+                if (rateOfProduction > 0) {
+                    e.modifyProduct(productToModify, rateOfProduction);
+                    break;
+                } else {
+                    Console.WriteLine("Rate of production must be greater than 0. Enter a new rate of production: ");
+                    continue;
+                }
+                
+            } catch (Exception ex) {
+                Console.WriteLine("Rate of production must be a number. Enter a new rate of production: ");
+            }
+
+        }
+
         Console.WriteLine("\nProduct modified!\n");
 
     }
@@ -247,9 +332,23 @@ class Program
 
         Console.WriteLine("Deleting Product of " + e.getName());
         e.printProducts();
+        string productToDelete = null;
+        List<string> listOfProducts = e.getProducts();
         Console.WriteLine("Pick a product to delete: ");
-        string productToDelete = Console.ReadLine();
-        e.deleteProduct(productToDelete);
+
+        while (productToDelete == null) {
+
+            productToDelete = Console.ReadLine();
+
+            if (!(listOfProducts.Contains(productToDelete))) {
+                Console.WriteLine("Product not found in entity " + e.getName() + ". Please choose a product to delete: ");
+                continue;
+            } else {
+                e.deleteProduct(productToDelete);
+            }
+
+        }
+
         Console.WriteLine("\nProduct deleted.");
 
     }
@@ -259,6 +358,14 @@ class Program
         Console.WriteLine("Adding Entity\n");
         Console.WriteLine("Entity Name: ");
         string entityName = Console.ReadLine();
+        
+        if (entityName == null) {
+            while(entityName == null) {
+                Console.WriteLine("No entity name provided. Entity Name: ");
+                entityName = Console.ReadLine();
+            }
+        }
+
         List<string> products = new List<string>();
         List<double> rates = new List<double>();
 
@@ -294,6 +401,8 @@ class Program
         Console.WriteLine("Modifying Entity\n");
         printEntities();
         Console.WriteLine("\nWhich entity do you want to modify?");
+        string etmString = Console.ReadLine();
+
         //when all objects are read in, this will search through them for the one with the matching name
         //for now it defaults to a new object
         Entity entityToModify = new Entity(); //CHANGE THIS!
@@ -328,8 +437,19 @@ class Program
 
     static void deleteEntity() {
         //the line will need to be directly removed, for now it's unused
+        printEntities();
         Console.WriteLine("Which entity do you want to delete?");
         string entityToDelete = Console.ReadLine();
+
+        if (entityToDelete == null) {
+
+            Console.WriteLine("Not an existing entity. Which entity do you want to delete?");
+            entityToDelete = Console.ReadLine();
+
+        }
+        
+        Console.WriteLine("Entity deleted.");
+
     }
 
     static void Main(string[] args)
